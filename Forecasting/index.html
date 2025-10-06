@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Forecast Dashboard</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 2em;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .controls {
+            display: flex;
+            gap: 1em;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2em;
+            flex-wrap: wrap;
+        }
+        label {
+            font-weight: bold;
+        }
+        select, button {
+            padding: 0.6em;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #plot-container {
+            margin-top: 1em;
+            text-align: center;
+            min-height: 450px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fafafa;
+        }
+        #forecast-plot {
+            max-width: 100%;
+            height: auto;
+        }
+        #loading {
+            display: none;
+            font-size: 1.2em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Sales Forecast Dashboard 📈</h1>
+
+        <div class="controls">
+            <div>
+                <label for="mall-select">Shopping Mall:</label>
+                <select id="mall-select"></select>
+            </div>
+            <div>
+                <label for="region-select">Region:</label>
+                <select id="region-select"></select>
+            </div>
+            <div>
+                <label for="category-select">Category:</label>
+                <select id="category-select"></select>
+            </div>
+            <button id="get-forecast-btn">Get Forecast</button>
+        </div>
+
+        <div id="plot-container">
+            <p id="loading">Select filters and click "Get Forecast" to see the plot.</p>
+            <img id="forecast-plot" src="" alt="">
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mallSelect = document.getElementById('mall-select');
+            const regionSelect = document.getElementById('region-select');
+            const categorySelect = document.getElementById('category-select');
+            const getForecastBtn = document.getElementById('get-forecast-btn');
+            const forecastPlot = document.getElementById('forecast-plot');
+            const loadingText = document.getElementById('loading');
+
+            // Fetch filters to populate dropdowns
+            fetch('/filters')
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    populateSelect(mallSelect, data.shopping_malls);
+                    populateSelect(regionSelect, data.regions);
+                    populateSelect(categorySelect, data.categories);
+                })
+                .catch(error => console.error('Error fetching filters:', error));
+
+            function populateSelect(selectElement, options) {
+                if (!options || options.length === 0) {
+                     selectElement.innerHTML = '<option>No data</option>';
+                     return;
+                }
+                selectElement.innerHTML = ''; // Clear existing options
+                options.forEach(option => {
+                    const opt = document.createElement('option');
+                    opt.value = option;
+                    opt.textContent = option;
+                    selectElement.appendChild(opt);
+                });
+            }
+
+            // Button click event
+            getForecastBtn.addEventListener('click', () => {
+                const selectedMall = mallSelect.value;
+                const selectedRegion = regionSelect.value;
+                const selectedCategory = categorySelect.value;
+
+                if (selectedMall && selectedRegion && selectedCategory) {
+                    loadingText.textContent = 'Loading plot...';
+                    loadingText.style.display = 'block';
+                    forecastPlot.style.display = 'none';
+                    forecastPlot.src = '';
+
+                    const plotUrl = `/forecast/plot?shopping_mall=${encodeURIComponent(selectedMall)}&region=${encodeURIComponent(selectedRegion)}&category=${encodeURIComponent(selectedCategory)}`;
+                    
+                    forecastPlot.onload = () => {
+                        loadingText.style.display = 'none';
+                        forecastPlot.style.display = 'block';
+                    }
+                    forecastPlot.onerror = () => {
+                        loadingText.textContent = 'Could not load plot. No forecast data available for this combination.';
+                        loadingText.style.display = 'block';
+                        forecastPlot.style.display = 'none';
+                    }
+                    forecastPlot.src = plotUrl;
+                    
+                } else {
+                    alert('Please select a value for all filters.');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
