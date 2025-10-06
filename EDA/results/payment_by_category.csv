@@ -1,0 +1,25 @@
+category,payment_method,total_revenue,transaction_count
+Books,Cash,304337.74,2268
+Books,Credit Card,223547.95,1696
+Books,Debit Card,139091.24,1017
+Clothing,Cash,41042874.85,15456
+Clothing,Credit Card,31473308.64,12025
+Clothing,Debit Card,18647769.41,7006
+Cosmetics,Cash,2367155.26,6674
+Cosmetics,Credit Card,1962644.38,5336
+Cosmetics,Debit Card,1098590.1,3087
+Food & Beverage,Cash,300435.1,6587
+Food & Beverage,Credit Card,242421.06,5250
+Food & Beverage,Debit Card,136578.57,2939
+Shoes,Cash,23815735.88,4474
+Shoes,Credit Card,18828887.34,3553
+Shoes,Debit Card,10565230.63,2007
+Souvenir,Cash,219650.47,2211
+Souvenir,Credit Card,182884.89,1770
+Souvenir,Debit Card,105568.01,1018
+Technology,Cash,20828346.0,2235
+Technology,Credit Card,16386867.0,1753
+Technology,Debit Card,9134160.0,1008
+Toys,Cash,1446414.23,4542
+Toys,Credit Card,1119306.85,3548
+Toys,Debit Card,614238.46,1997

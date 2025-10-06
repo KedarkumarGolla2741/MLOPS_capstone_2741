@@ -1,0 +1,22 @@
+Region,payment_method,total_revenue,transaction_count
+Ataşehir,Cash,9098638.94,4559
+Ataşehir,Credit Card,7197494.07,3521
+Ataşehir,Debit Card,4022884.11,2081
+Bayrampaşa,Cash,8675609.2,4411
+Bayrampaşa,Credit Card,6981051.19,3529
+Bayrampaşa,Debit Card,4269193.48,1998
+Beşiktaş,Cash,22844321.26,11218
+Beşiktaş,Credit Card,18005395.08,8779
+Beşiktaş,Debit Card,10177329.37,5021
+Levent,Cash,31704003.69,15478
+Levent,Credit Card,24272810.57,12263
+Levent,Debit Card,14308107.52,7093
+Pendik,Cash,4571938.03,2231
+Pendik,Credit Card,3564533.96,1721
+Pendik,Debit Card,1898024.6,962
+Üsküdar,Cash,4595509.69,2114
+Üsküdar,Credit Card,3392194.89,1696
+Üsküdar,Debit Card,1933216.45,1001
+Şişli,Cash,8834928.74,4436
+Şişli,Credit Card,7006388.37,3422
+Şişli,Debit Card,3832470.88,1923

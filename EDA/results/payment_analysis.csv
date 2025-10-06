@@ -1,0 +1,4 @@
+payment_method,total_revenue,avg_transaction_value,transaction_count,total_quantity,unique_customers,revenue_percentage,transaction_percentage
+Cash,90324949.54,2032.19,44447,133370,44447,44.9,44.69
+Credit Card,70419868.12,2015.97,34931,105045,34931,35.0,35.12
+Debit Card,40441226.43,2014.11,20079,60297,20079,20.1,20.19
